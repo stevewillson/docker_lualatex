@@ -25,10 +25,10 @@ ARG FIG2DEV=fig2dev
 RUN apt-get update && apt-get install -y \
   texlive-luatex \
   fontconfig \
-  ttf-mscorefonts-installer && \
+  ttf-mscorefonts-installer \
   # some auxiliary tools
   #"$WGET" \
-  #"$GIT" \
+  "$GIT" && \
   #"$MAKE" \
   # markup format conversion tool
   #"$PANDOC" \
