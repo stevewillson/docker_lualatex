@@ -14,7 +14,6 @@ RUN adduser \
 
 RUN sed -i "s/main/main contrib/g" /etc/apt/sources.list
 
-
 ARG WGET=wget
 ARG GIT=git
 ARG MAKE=make
@@ -25,6 +24,7 @@ ARG FIG2DEV=fig2dev
 
 RUN apt-get update && apt-get install -y \
   texlive-luatex \
+  fontconfig \
   ttf-mscorefonts-installer && \
   # some auxiliary tools
   #"$WGET" \
