@@ -12,6 +12,9 @@ RUN adduser \
   --disabled-password \
   "$USER_NAME"
 
+sed -i "s#deb http://http.us.debian.org/debian testing main#deb http://http.us.debian.org/debian jessie main contrib non-free#g" /etc/apt/sources.list
+
+
 ARG WGET=wget
 ARG GIT=git
 ARG MAKE=make
