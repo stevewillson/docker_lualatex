@@ -1,4 +1,5 @@
-FROM debian:testing
+FROM ubuntu
+#FROM debian:testing
 
 ARG USER_NAME=latex
 ARG USER_HOME=/home/latex
@@ -12,7 +13,7 @@ RUN adduser \
   --disabled-password \
   "$USER_NAME"
 
-RUN sed -i "s/main/main contrib/g" /etc/apt/sources.list
+#RUN sed -i "s/main/main contrib/g" /etc/apt/sources.list
 
 ARG GIT=git
 
