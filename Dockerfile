@@ -1,6 +1,8 @@
 FROM ubuntu
 #FROM debian:testing
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 ARG USER_NAME=jenkins
 ARG USER_HOME=/home/jenkins
 ARG USER_ID=1004
@@ -18,9 +20,8 @@ RUN adduser \
   --disabled-password \
   "$USER_NAME"
 
-
-# for debian, add the 'contrib' repo
-#RUN sed -i "s/main/main contrib/g" /etc/apt/sources.list
+RUN ln -fs /usr/share/zoneinfo/US/Eastern /etc/localtime
+#RUN dpkg-reconfigure -f noninteractive tzdata
 
 ARG GIT=git
 
