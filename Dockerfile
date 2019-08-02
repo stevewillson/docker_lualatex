@@ -1,31 +1,46 @@
 FROM ubuntu
 #FROM debian:testing
 
-ARG USER_NAME=latex
-ARG USER_HOME=/home/latex
-ARG USER_ID=1000
-ARG USER_GECOS=LaTeX
+ARG USER_NAME=jenkins
+ARG USER_HOME=/home/jenkins
+ARG USER_ID=1004
+ARG USER_GECOS=jenkins
+
+RUN addgroup \
+  --gid 1005 \
+  "$USER_NAME"
 
 RUN adduser \
   --home "$USER_HOME" \
   --uid $USER_ID \
   --gecos "$USER_GECOS" \
+  --gid 1005 \
   --disabled-password \
   "$USER_NAME"
 
+
+# for debian, add the 'contrib' repo
 #RUN sed -i "s/main/main contrib/g" /etc/apt/sources.list
 
 ARG GIT=git
 
+RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
+
 RUN apt-get update && apt-get install -y \
   texlive-latex-base \
-  texlive-luatex \
+  texlive-latex-recommended \
+  texlive-full \
+  texlive-luatex
+
+RUN apt-get install -y \ 
   fontconfig \
-  ttf-mscorefonts-installer \
+  ttf-mscorefonts-installer
+
+RUN apt-get install -y \
   # some auxiliary tools
-  "$GIT" && \
-  # but it only adds some overhead while building the image.
-  apt-get --purge remove -y .\*-doc$ && \
+  "$GIT"
+
+RUN apt-get --purge remove -y .\*-doc$ && \
   # Remove more unnecessary stuff
   apt-get clean -y
 
